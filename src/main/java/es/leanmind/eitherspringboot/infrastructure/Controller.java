@@ -34,7 +34,7 @@ public class Controller {
                 .wrap(text, columnWidth)
                 .map(t -> ResponseEntity
                         .status(HttpStatus.OK)
-                        .body(t.toString()))
+                        .body(t))
                 .getOrElseGet(e -> ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
                         .body(e));
