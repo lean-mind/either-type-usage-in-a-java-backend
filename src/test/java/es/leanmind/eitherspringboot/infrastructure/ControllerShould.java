@@ -1,6 +1,6 @@
 package es.leanmind.eitherspringboot.infrastructure;
 
-import domain.ApplicationService;
+import es.leanmind.eitherspringboot.domain.ApplicationService;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -39,12 +38,12 @@ public class ControllerShould {
     @Test
     public void returnOKWhenServiceReturnsRight() throws Exception {
         Mockito.when(appService.wrap(any(), any()))
-                .thenReturn(Either.right("hello"));
+                .thenReturn(Either.right("hello\nworld"));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/wrap-text")
-                        .param("text", "hello")
+                        .param("text", "hello world")
                         .param("columnWidth", "10"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("hello"));
+                .andExpect(content().string("hello\nworld"));
     }
 }

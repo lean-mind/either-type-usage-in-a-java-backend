@@ -1,7 +1,5 @@
 package es.leanmind.eitherspringboot.domain;
 
-import domain.Text;
-import domain.TextWrapper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

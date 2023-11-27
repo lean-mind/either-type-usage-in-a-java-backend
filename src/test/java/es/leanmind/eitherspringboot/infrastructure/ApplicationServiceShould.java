@@ -1,6 +1,6 @@
 package es.leanmind.eitherspringboot.infrastructure;
 
-import domain.ApplicationService;
+import es.leanmind.eitherspringboot.domain.ApplicationService;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package domain;
+package es.leanmind.eitherspringboot.domain;
 
 public class Text {
     private final String text;

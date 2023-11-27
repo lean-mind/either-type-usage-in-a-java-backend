@@ -1,4 +1,4 @@
-package domain;
+package es.leanmind.eitherspringboot.domain;
 
 import io.vavr.control.Either;
 

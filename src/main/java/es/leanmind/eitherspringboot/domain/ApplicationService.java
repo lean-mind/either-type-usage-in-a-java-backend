@@ -1,9 +1,9 @@
-package domain;
+package es.leanmind.eitherspringboot.domain;
 
 import io.vavr.control.Either;
+import org.springframework.stereotype.Service;
 
-import java.io.PrintStream;
-
+@Service
 public class ApplicationService {
 
     public Either<String, String> wrap(String text, String columnWidth) {
