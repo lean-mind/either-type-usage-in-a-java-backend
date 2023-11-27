@@ -32,9 +32,9 @@ public class Controller {
                            @RequestParam(value = "columnWidth", defaultValue = "") String columnWidth) {
         return appService
                 .wrap(text, columnWidth)
-                .map(t -> ResponseEntity
+                .map(wrappedText -> ResponseEntity
                         .status(HttpStatus.OK)
-                        .body(t))
+                        .body(wrappedText))
                 .getOrElseGet(e -> ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
                         .body(e));
