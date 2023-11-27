@@ -1,6 +1,7 @@
 package es.leanmind.eitherspringboot.infrastructure;
 
 import es.leanmind.eitherspringboot.application.ApplicationService;
+import es.leanmind.eitherspringboot.application.errors.ColumnMustBeDecimal;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -26,13 +27,13 @@ public class ControllerShould {
     @Test
     public void returnBadRequestWhenServiceReturnsLeft() throws Exception {
         Mockito.when(appService.wrap(any(), any()))
-                .thenReturn(Either.left("error"));
+            .thenReturn(Either.left(ColumnMustBeDecimal.instantiate()));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/wrap-text")
                 .param("text", "some text")
                 .param("columnWidth", "wrong!"))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string("error"));
+            .andExpect(status().isBadRequest())
+            .andExpect(content().string("Column must be decimal"));
     }
 
     @Test

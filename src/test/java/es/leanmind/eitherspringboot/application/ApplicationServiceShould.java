@@ -1,6 +1,8 @@
 package es.leanmind.eitherspringboot.application;
 
-import es.leanmind.eitherspringboot.application.ApplicationService;
+import es.leanmind.eitherspringboot.application.errors.ColumnIsNull;
+import es.leanmind.eitherspringboot.application.errors.ColumnMustBeDecimal;
+import es.leanmind.eitherspringboot.application.errors.TextIsNull;
 import io.vavr.control.Either;
 import org.junit.jupiter.api.Test;
 
@@ -12,14 +14,14 @@ public class ApplicationServiceShould {
     public void notAllowForInvalidArguments(){
         var appService = new ApplicationService();
 
-        assertThat(appService.wrap(null, "10"))
-                .isEqualTo(Either.left("Text must not be null"));
+        assertThat(appService.wrap(null, "10").getLeft().getMessage())
+                .isEqualTo(Either.left(TextIsNull.instantiate()).getLeft().getMessage());
 
-        assertThat(appService.wrap("some text", null))
-                .isEqualTo(Either.left("Column width must not be null"));
+        assertThat(appService.wrap("some text", null).getLeft().getMessage())
+                .isEqualTo(Either.left(ColumnIsNull.instantiate()).getLeft().getMessage());
 
-        assertThat(appService.wrap("some text", "foo"))
-                .isEqualTo(Either.left("Wrong argument. Column with must be a decimal"));
+        assertThat(appService.wrap("some text", "foo").getLeft().getMessage())
+                .isEqualTo(Either.left(ColumnMustBeDecimal.instantiate()).getLeft().getMessage());
     }
 
     @Test
