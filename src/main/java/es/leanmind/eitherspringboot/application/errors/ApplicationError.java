@@ -11,3 +11,4 @@ public sealed class ApplicationError permits ColumnIsNull, ColumnMustBeDecimal, 
         return message;
     }
 }
+

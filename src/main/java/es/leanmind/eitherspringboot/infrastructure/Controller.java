@@ -2,6 +2,7 @@ package es.leanmind.eitherspringboot.infrastructure;
 
 import es.leanmind.eitherspringboot.application.ApplicationService;
 import es.leanmind.eitherspringboot.application.errors.ApplicationError;
+import es.leanmind.eitherspringboot.application.errors.ApplicationError2;
 import es.leanmind.eitherspringboot.application.errors.ColumnIsNull;
 import es.leanmind.eitherspringboot.application.errors.ColumnMustBeDecimal;
 import es.leanmind.eitherspringboot.application.errors.TextIsNull;
@@ -44,7 +45,6 @@ public class Controller {
         .getOrElseGet(this::handleError);
   }
 
-  // I don't like it at all because it is not type safe
   private ResponseEntity handleError(ApplicationError error) {
     if (error instanceof ColumnIsNull) {
       return ResponseEntity
@@ -63,8 +63,35 @@ public class Controller {
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .body("Unexpected error");
     }
-    return ResponseEntity
-        .status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .body("Unexpected error");
+    throw new RuntimeException("Unknown error");
   }
+
+  private ResponseEntity handleError(ApplicationError2 error) {
+    switch (error) {
+      case ApplicationError2.TextIsNull2 textIsNull2 -> {
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(textIsNull2.message);
+      }
+      case ApplicationError2.ColumnIsNull2 columnIsNull2 -> {
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(columnIsNull2.message);
+      }
+      case ApplicationError2.ColumnMustBeDecimal2 invalidMobColumnMustBeDecimal2 -> {
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(invalidMobColumnMustBeDecimal2.message);
+      }
+      case ApplicationError2.UnexpectedError2 invalidMobColumnMustBeDecimal2 -> {
+        return ResponseEntity
+            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(invalidMobColumnMustBeDecimal2.message);
+      }
+      default -> {
+        throw new RuntimeException("Unknown error");
+      }
+    }
+  }
+
 }
