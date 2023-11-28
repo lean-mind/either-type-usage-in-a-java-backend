@@ -1,6 +1,6 @@
 package es.leanmind.eitherspringboot.infrastructure;
 
-import es.leanmind.eitherspringboot.domain.ApplicationService;
+import es.leanmind.eitherspringboot.application.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-@ComponentScan(basePackages = {"es.leanmind.eitherspringboot.domain"})
+@ComponentScan(basePackages = {"es.leanmind.eitherspringboot.application"})
 public class Controller {
 
     private final ApplicationService appService;
@@ -32,9 +32,9 @@ public class Controller {
                            @RequestParam(value = "columnWidth", defaultValue = "") String columnWidth) {
         return appService
                 .wrap(text, columnWidth)
-                .map(t -> ResponseEntity
+                .map(wrappedText -> ResponseEntity
                         .status(HttpStatus.OK)
-                        .body(t))
+                        .body(wrappedText))
                 .getOrElseGet(e -> ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
                         .body(e));

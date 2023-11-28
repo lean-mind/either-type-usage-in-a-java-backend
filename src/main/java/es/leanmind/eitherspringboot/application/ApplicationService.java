@@ -1,5 +1,7 @@
-package es.leanmind.eitherspringboot.domain;
+package es.leanmind.eitherspringboot.application;
 
+import es.leanmind.eitherspringboot.domain.Text;
+import es.leanmind.eitherspringboot.domain.TextWrapper;
 import io.vavr.control.Either;
 import org.springframework.stereotype.Service;
 
